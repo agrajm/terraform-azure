@@ -13,8 +13,9 @@ resource "random_string" "webapprnd" {
 }
 
 resource "azurerm_app_service_plan" "free" {
-    name                = "plan-free-${var.loc}"
-    location            = "${var.loc}"
+    count               = "${length(var.webapplocs)}"
+    name                = "plan-free-${var.webapplocs[count.index]}"
+    location            = "${var.webapplocs[count.index]}"
     resource_group_name = "${azurerm_resource_group.webapps.name}"
     tags                = "${azurerm_resource_group.webapps.tags}"
 
@@ -28,8 +29,9 @@ resource "azurerm_app_service_plan" "free" {
 }
 
 resource "azurerm_app_service" "citadel" {
-    name                = "webapp-${random_string.webapprnd.result}-${var.loc}"
-    location            = "${var.loc}"
+    count               = "${length(var.webapplocs)}"
+    name                = "webapp-${random_string.webapprnd.result}-${var.webapplocs[count.index]}"
+    location            = "${var.webapplocs[count.index]}"
     resource_group_name = "${azurerm_resource_group.webapps.name}"
     tags                = "${azurerm_resource_group.webapps.tags}"
 
