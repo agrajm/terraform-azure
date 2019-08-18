@@ -10,7 +10,7 @@ variable "tags" {
     }
 }
 
-variable "locs" {
+variable "webapplocs" {
   type = "list"
-  default = [ "eastus2", "uksouth", "centralindia" ]
+  default = []
 }
