@@ -22,8 +22,8 @@ resource "azurerm_app_service_plan" "free" {
     kind                = "Linux"
     reserved            = true
     sku {
-        tier = "Free"
-        size = "F1"
+        tier = "Standard"
+        size = "S1"
     }
 
 }
@@ -35,5 +35,5 @@ resource "azurerm_app_service" "citadel" {
     resource_group_name = "${azurerm_resource_group.webapps.name}"
     tags                = "${azurerm_resource_group.webapps.tags}"
 
-    app_service_plan_id = "${azurerm_app_service_plan.free.id}"
+    app_service_plan_id = "${element(azurerm_app_service_plan.free.*.id, count.index)}"
 }

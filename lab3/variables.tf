@@ -12,5 +12,5 @@ variable "tags" {
 
 variable "webapplocs" {
   type = "list"
-  default = [ "eastus2", "uksouth", "centralindia" ]
+  default = []
 }
