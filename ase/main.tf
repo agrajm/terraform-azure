@@ -160,6 +160,26 @@ resource "azurerm_subnet_network_security_group_association" "asensgasc" {
    network_security_group_id  =  azurerm_network_security_group.asensg.id
 }
 
+# ASE Route Table
+resource "azurerm_route_table" "aseroutetbl" {
+  name                          = "ase-route-table"
+  location                      = azurerm_resource_group.main.location
+  resource_group_name           = azurerm_resource_group.main.name
+  
+  route {
+    name           = "ase-route"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "Internet"
+  }
+
+  tags = azurerm_resource_group.main.tags
+}
+
+resource "azurerm_subnet_route_table_association" "aseroutblasc" {
+  subnet_id      = azurerm_subnet.ase.id
+  route_table_id = azurerm_route_table.aseroutetbl.id
+}
+
 # ILB ASE v2
 resource "azurerm_template_deployment" "deployASE" {
   name                = "aseDeployment"
