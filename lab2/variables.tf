@@ -4,15 +4,15 @@ variable "rg" {
 }
 
 variable "loc" {
-  default = "eastus"
+  default = "australiasoutheast"
   description = "the location to create resources in"
 }
 
 variable "tags" {
-  type = "map"
+  type = map
   default = {
       environment = "training"
-      speciality = "variables"
+      speciality = "terraform"
   }
   description = "common set of tags to put on every resource"
 }

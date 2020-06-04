@@ -1,4 +1,6 @@
 provider "azurerm" {
+  version = "=2.5.0"
+  features {}
 }
 
 resource "azurerm_resource_group" "lab1" {
@@ -11,7 +13,7 @@ resource "azurerm_resource_group" "lab1" {
 }
 
 resource "azurerm_storage_account" "lab1_sa" {
-    resource_group_name         = "${azurerm_resource_group.lab1.name}"
+    resource_group_name         = azurerm_resource_group.lab1.name
     name                        = "storageacctftestlab1am"
     location                    = "australiasoutheast"
     account_tier                = "Standard"
